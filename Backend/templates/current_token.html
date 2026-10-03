@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Current Token - QueueSmart</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            color: #222;
+        }
+
+        /* NAVBAR */
+
+        .navbar {
+            background: white;
+            padding: 18px 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+            color: #0d6efd;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #555;
+            padding: 8px 12px;
+            border-radius: 6px;
+        }
+
+        .nav-links a:hover {
+            background: #eef5ff;
+            color: #0d6efd;
+        }
+
+        .logout {
+            background: #dc3545;
+            color: white !important;
+        }
+
+        /* MAIN */
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 45px auto;
+        }
+
+        .page-title {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .page-title h1 {
+            font-size: 34px;
+            margin-bottom: 10px;
+            color: #1f2937;
+        }
+
+        .page-title p {
+            color: #6c757d;
+        }
+
+        /* FIVE CARDS */
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 18px;
+            margin-bottom: 35px;
+        }
+
+        .card {
+            background: white;
+            padding: 25px 15px;
+            border-radius: 14px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            min-height: 170px;
+        }
+
+        .card h3 {
+            font-size: 15px;
+            color: #6c757d;
+            margin-bottom: 20px;
+        }
+
+        .value {
+            font-size: 30px;
+            font-weight: bold;
+            color: #0d6efd;
+            word-break: break-word;
+        }
+
+        .unit {
+            color: #777;
+            margin-top: 8px;
+            font-size: 14px;
+        }
+
+        .status-active {
+            color: #198754;
+        }
+
+        /* MAIN STATUS */
+
+        .status-box {
+            background: white;
+            padding: 35px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            margin-bottom: 30px;
+        }
+
+        .status-box h2 {
+            margin-bottom: 15px;
+        }
+
+        .status-message {
+            font-size: 18px;
+            color: #555;
+        }
+
+        /* BUTTONS */
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 25px;
+        }
+
+        .button {
+            text-decoration: none;
+            padding: 12px 22px;
+            border-radius: 7px;
+            background: #0d6efd;
+            color: white;
+            font-weight: bold;
+        }
+
+        .button:hover {
+            background: #0b5ed7;
+        }
+
+        .secondary {
+            background: #6c757d;
+        }
+
+        .secondary:hover {
+            background: #5c636a;
+        }
+
+        /* FOOTER */
+
+        footer {
+            margin-top: 50px;
+            background: #1f2937;
+            color: white;
+            text-align: center;
+            padding: 25px;
+        }
+
+        footer p {
+            color: #cbd5e1;
+            margin: 5px;
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 1100px) {
+
+            .cards {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+        }
+
+        @media (max-width: 700px) {
+
+            .navbar {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+        }
+
+        @media (max-width: 480px) {
+
+            .container {
+                width: 92%;
+            }
+
+            .cards {
+                grid-template-columns: 1fr;
+            }
+
+            .page-title h1 {
+                font-size: 28px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- NAVBAR -->
+
+<nav class="navbar">
+
+    <div class="logo">
+        QueueSmart
+    </div>
+
+    <div class="nav-links">
+
+        <a href="/dashboard">
+            Dashboard
+        </a>
+
+        <a href="/book_queue">
+            Book Queue
+        </a>
+
+        <a href="/my_bookings">
+            My Bookings
+        </a>
+
+        <a href="/queue_status">
+            Queue Status
+        </a>
+
+        <a href="/logout" class="logout">
+            Logout
+        </a>
+
+    </div>
+
+</nav>
+
+
+<!-- MAIN -->
+
+<div class="container">
+
+
+    <div class="page-title">
+
+        <h1>
+            Live Queue Status
+        </h1>
+
+        <p>
+            Monitor your queue position in real time.
+        </p>
+
+    </div>
+
+
+    <!-- FIVE CARDS -->
+
+    <div class="cards">
+
+
+        <!-- CURRENT TOKEN -->
+
+        <div class="card">
+
+            <h3>
+                Currently Serving
+            </h3>
+
+            <div class="value">
+                {{ serving_token }}
+            </div>
+
+            <div class="unit">
+                Token
+            </div>
+
+        </div>
+
+
+        <!-- YOUR TOKEN -->
+
+        <div class="card">
+
+            <h3>
+                Your Token
+            </h3>
+
+            <div class="value">
+                {{ your_token }}
+            </div>
+
+            <div class="unit">
+                Your booking
+            </div>
+
+        </div>
+
+
+        <!-- PEOPLE AHEAD -->
+
+        <div class="card">
+
+            <h3>
+                People Ahead
+            </h3>
+
+            <div class="value">
+                {{ people_ahead }}
+            </div>
+
+            <div class="unit">
+                Customers
+            </div>
+
+        </div>
+
+
+        <!-- WAITING TIME -->
+
+        <div class="card">
+
+            <h3>
+                Waiting Time
+            </h3>
+
+            <div class="value">
+                {{ waiting_time }}
+            </div>
+
+            <div class="unit">
+                Minutes
+            </div>
+
+        </div>
+
+
+        <!-- ACTIVE CUSTOMERS -->
+
+        <div class="card">
+
+            <h3>
+                Active Customers
+            </h3>
+
+            <div class="value">
+                {{ active_count }}
+            </div>
+
+            <div class="unit">
+                In queue
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+    <!-- STATUS -->
+
+    <div class="status-box">
+
+        <h2>
+            Queue Status
+        </h2>
+
+
+        {% if your_status == "Pending" %}
+
+            <div class="status-message">
+                🟠 Your booking is <strong>Pending</strong>.
+                Please wait for your token to be called.
+            </div>
+
+
+        {% elif your_status == "In Progress" %}
+
+            <div class="status-message status-active">
+                🟢 Your token is currently being processed.
+            </div>
+
+
+        {% elif your_status == "Completed" %}
+
+            <div class="status-message status-active">
+                ✅ Your appointment has been completed.
+            </div>
+
+
+        {% elif your_status == "Cancelled" %}
+
+            <div class="status-message" style="color:#dc3545;">
+                ❌ Your appointment has been cancelled.
+            </div>
+
+
+        {% else %}
+
+            <div class="status-message">
+                No active booking found.
+            </div>
+
+        {% endif %}
+
+
+        <!-- BUTTONS -->
+
+        <div class="buttons">
+
+            <a href="/dashboard" class="button">
+                Dashboard
+            </a>
+
+            <a href="/my_bookings" class="button">
+                My Bookings
+            </a>
+
+            <a href="/book_queue" class="button">
+                Book Another Queue
+            </a>
+
+            <a href="/" class="button secondary">
+                Home
+            </a>
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+<!-- FOOTER -->
+
+<footer>
+
+    <p>
+        Digital Queue Management System
+    </p>
+
+    <p>
+        Smart • Fast • Efficient
+    </p>
+
+</footer>
+
+
+<!-- AUTO REFRESH -->
+
+<script>
+
+    setInterval(function() {
+
+        location.reload();
+
+    }, 5000);
+
+</script>
+
+
+</body>
+
+</html>

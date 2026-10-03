@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Book Queue - QueueSmart</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            color: #222;
+        }
+
+        /* NAVBAR */
+
+        .navbar {
+            background: white;
+            padding: 18px 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+            color: #0d6efd;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #555;
+            padding: 8px 12px;
+            border-radius: 6px;
+        }
+
+        .nav-links a:hover {
+            background: #eef5ff;
+            color: #0d6efd;
+        }
+
+        .logout {
+            background: #dc3545;
+            color: white !important;
+        }
+
+        /* MAIN */
+
+        .container {
+            width: 90%;
+            max-width: 850px;
+            margin: 45px auto;
+        }
+
+        .page-title {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .page-title h1 {
+            font-size: 34px;
+            color: #1f2937;
+            margin-bottom: 10px;
+        }
+
+        .page-title p {
+            color: #6c757d;
+        }
+
+        /* BOOKING CARD */
+
+        .booking-card {
+            background: white;
+            padding: 35px;
+            border-radius: 16px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        .form-group {
+            margin-bottom: 22px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #374151;
+        }
+
+        select {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #d1d5db;
+            border-radius: 7px;
+            font-size: 15px;
+            background: white;
+        }
+
+        select:focus {
+            outline: none;
+            border-color: #0d6efd;
+            box-shadow: 0 0 0 2px rgba(13,110,253,0.1);
+        }
+
+        /* BUTTON */
+
+        .book-button {
+            width: 100%;
+            padding: 14px;
+            background: #0d6efd;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .book-button:hover {
+            background: #0b5ed7;
+        }
+
+        /* INFO */
+
+        .info {
+            margin-top: 25px;
+            background: #eef5ff;
+            padding: 18px;
+            border-radius: 10px;
+            color: #555;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        /* FOOTER */
+
+        footer {
+            margin-top: 50px;
+            background: #1f2937;
+            color: white;
+            text-align: center;
+            padding: 25px;
+        }
+
+        footer p {
+            color: #cbd5e1;
+            margin: 5px;
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 650px) {
+
+            .navbar {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .container {
+                width: 92%;
+                margin-top: 30px;
+            }
+
+            .booking-card {
+                padding: 25px 20px;
+            }
+
+            .page-title h1 {
+                font-size: 28px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- NAVBAR -->
+
+<nav class="navbar">
+
+    <div class="logo">
+        QueueSmart
+    </div>
+
+    <div class="nav-links">
+
+        <a href="/dashboard">
+            Dashboard
+        </a>
+
+        <a href="/my_bookings">
+            My Bookings
+        </a>
+
+        <a href="/current_token">
+            Current Token
+        </a>
+
+        <a href="/logout" class="logout">
+            Logout
+        </a>
+
+    </div>
+
+</nav>
+
+
+<!-- MAIN -->
+
+<div class="container">
+
+
+    <div class="page-title">
+
+        <h1>
+            Book Your Queue
+        </h1>
+
+        <p>
+            Select your location, organization and service
+            to receive a digital token.
+        </p>
+
+    </div>
+
+
+    <div class="booking-card">
+
+
+        <form method="POST" action="/book_queue">
+
+
+            <!-- CITY -->
+
+            <div class="form-group">
+
+                <label for="city">
+                    City
+                </label>
+
+                <select id="city" name="city" required>
+
+                    <option value="">
+                        Select City
+                    </option>
+
+                    <option value="Mumbai">
+                        Mumbai
+                    </option>
+
+                    <option value="Thane">
+                        Thane
+                    </option>
+
+                    <option value="Navi Mumbai">
+                        Navi Mumbai
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- AREA -->
+
+            <div class="form-group">
+
+                <label for="area">
+                    Area
+                </label>
+
+                <select id="area" name="area" required>
+
+                    <option value="">
+                        Select Area
+                    </option>
+
+                    <option value="Mulund">
+                        Mulund
+                    </option>
+
+                    <option value="Powai">
+                        Powai
+                    </option>
+
+                    <option value="Thane">
+                        Thane
+                    </option>
+
+                    <option value="Vashi">
+                        Vashi
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- CATEGORY -->
+
+            <div class="form-group">
+
+                <label for="category">
+                    Category
+                </label>
+
+                <select id="category" name="category" required>
+
+                    <option value="">
+                        Select Category
+                    </option>
+
+                    <option value="Hospital">
+                        Hospital
+                    </option>
+
+                    <option value="Clinic">
+                        Clinic
+                    </option>
+
+                    <option value="Restaurant">
+                        Restaurant
+                    </option>
+
+                    <option value="Hotel">
+                        Hotel
+                    </option>
+
+                    <option value="Bank">
+                        Bank
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- ORGANIZATION -->
+
+            <div class="form-group">
+
+                <label for="org_id">
+                    Organization
+                </label>
+
+                <select id="org_id" name="org_id" required>
+
+                    <option value="">
+                        Select Organization
+                    </option>
+
+                    {% for org in organizations %}
+
+                        <option value="{{ org[0] }}">
+                            {{ org[1] }}
+                        </option>
+
+                    {% endfor %}
+
+                </select>
+
+            </div>
+
+
+            <!-- SERVICE -->
+
+            <div class="form-group">
+
+                <label for="service_id">
+                    Service
+                </label>
+
+                <select id="service_id" name="service_id" required>
+
+                    <option value="">
+                        Select Service
+                    </option>
+
+                    {% for service in services %}
+
+                        <option value="{{ service[0] }}">
+                            {{ service[1] }}
+                        </option>
+
+                    {% endfor %}
+
+                </select>
+
+            </div>
+
+
+            <!-- BOOK BUTTON -->
+
+            <button type="submit" class="book-button">
+                🎫 Book Queue
+            </button>
+
+
+        </form>
+
+
+        <div class="info">
+
+            <strong>How it works:</strong>
+
+            <br>
+
+            Select your city and area, choose the organization
+            and service, then click <strong>Book Queue</strong>.
+            Your token number and estimated waiting time will
+            be generated automatically.
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+<!-- FOOTER -->
+
+<footer>
+
+    <p>
+        Digital Queue Management System
+    </p>
+
+    <p>
+        Smart • Fast • Efficient
+    </p>
+
+</footer>
+
+
+<!-- EXISTING DYNAMIC DROPDOWN SCRIPT -->
+
+<script>
+
+const city = document.getElementById("city");
+const area = document.getElementById("area");
+const category = document.getElementById("category");
+
+const org = document.getElementById("org_id");
+const service = document.getElementById("service_id");
+
+
+function loadOrganizations() {
+
+    const cityValue = city.value;
+    const areaValue = area.value;
+    const categoryValue = category.value;
+
+    org.innerHTML = '<option value="">Select Organization</option>';
+
+    service.innerHTML = '<option value="">Select Service</option>';
+
+    if (!cityValue || !areaValue || !categoryValue) {
+        return;
+    }
+
+    fetch("/get_organizations", {
+
+        method: "POST",
+
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+        },
+
+        body:
+            "city=" + encodeURIComponent(cityValue) +
+            "&area=" + encodeURIComponent(areaValue) +
+            "&category=" + encodeURIComponent(categoryValue)
+
+    })
+
+    .then(response => response.json())
+
+    .then(data => {
+
+        data.forEach(item => {
+
+            const option = document.createElement("option");
+
+            option.value = item[0];
+            option.textContent = item[1];
+
+            org.appendChild(option);
+
+        });
+
+    })
+
+    .catch(error => {
+
+        console.error("Organization loading error:", error);
+
+    });
+
+}
+
+
+function loadServices() {
+
+    const orgValue = org.value;
+
+    service.innerHTML = '<option value="">Select Service</option>';
+
+    if (!orgValue) {
+        return;
+    }
+
+    fetch("/get_services", {
+
+        method: "POST",
+
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+        },
+
+        body:
+            "org_id=" + encodeURIComponent(orgValue)
+
+    })
+
+    .then(response => response.json())
+
+    .then(data => {
+
+        data.forEach(item => {
+
+            const option = document.createElement("option");
+
+            option.value = item[0];
+            option.textContent = item[1];
+
+            service.appendChild(option);
+
+        });
+
+    })
+
+    .catch(error => {
+
+        console.error("Service loading error:", error);
+
+    });
+
+}
+
+
+city.addEventListener("change", loadOrganizations);
+
+area.addEventListener("change", loadOrganizations);
+
+category.addEventListener("change", loadOrganizations);
+
+org.addEventListener("change", loadServices);
+
+
+</script>
+
+
+</body>
+
+</html>

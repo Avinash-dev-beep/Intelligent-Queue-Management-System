@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Digital Queue Management System</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            color: #222;
+        }
+
+        /* ================= NAVBAR ================= */
+
+        .navbar {
+            background: white;
+            padding: 18px 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+            color: #0d6efd;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .nav-buttons a {
+            text-decoration: none;
+            padding: 9px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        .login {
+            color: #0d6efd;
+            border: 1px solid #0d6efd;
+        }
+
+        .register {
+            background: #0d6efd;
+            color: white;
+        }
+
+        /* ================= HERO ================= */
+
+        .hero {
+            min-height: 520px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 50px;
+            padding: 70px 8%;
+        }
+
+        .hero-text {
+            max-width: 600px;
+        }
+
+        .hero-text h1 {
+            font-size: 48px;
+            line-height: 1.15;
+            margin-bottom: 20px;
+            color: #1f2937;
+        }
+
+        .hero-text h1 span {
+            color: #0d6efd;
+        }
+
+        .hero-text p {
+            font-size: 18px;
+            color: #666;
+            line-height: 1.7;
+            margin-bottom: 30px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .primary-btn {
+            text-decoration: none;
+            background: #0d6efd;
+            color: white;
+            padding: 13px 25px;
+            border-radius: 7px;
+            font-weight: bold;
+        }
+
+        .secondary-btn {
+            text-decoration: none;
+            border: 1px solid #0d6efd;
+            color: #0d6efd;
+            padding: 13px 25px;
+            border-radius: 7px;
+            font-weight: bold;
+        }
+
+        /* ================= HERO CARD ================= */
+
+        .hero-card {
+            width: 390px;
+            background: white;
+            padding: 30px;
+            border-radius: 18px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.10);
+        }
+
+        .hero-card h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .token-display {
+            text-align: center;
+            background: #eef5ff;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+
+        .token-display small {
+            color: #666;
+        }
+
+        .token-number {
+            font-size: 55px;
+            font-weight: bold;
+            color: #0d6efd;
+            margin-top: 5px;
+        }
+
+        .queue-info {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .queue-info:last-child {
+            border-bottom: none;
+        }
+
+        /* ================= FEATURES ================= */
+
+        .features {
+            background: white;
+            padding: 60px 8%;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .section-title h2 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .section-title p {
+            color: #777;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .feature-card {
+            padding: 30px 20px;
+            text-align: center;
+            background: #f8fafc;
+            border-radius: 12px;
+        }
+
+        .feature-icon {
+            font-size: 35px;
+            margin-bottom: 15px;
+        }
+
+        .feature-card h3 {
+            margin-bottom: 10px;
+        }
+
+        .feature-card p {
+            color: #666;
+            line-height: 1.5;
+            font-size: 14px;
+        }
+
+        /* ================= QUICK ACTIONS ================= */
+
+        .quick {
+            padding: 60px 8%;
+            text-align: center;
+        }
+
+        .quick h2 {
+            margin-bottom: 25px;
+        }
+
+        .quick-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .quick-buttons a {
+            text-decoration: none;
+            background: #0d6efd;
+            color: white;
+            padding: 13px 22px;
+            border-radius: 7px;
+        }
+
+        /* ================= FOOTER ================= */
+
+        footer {
+            background: #1f2937;
+            color: white;
+            text-align: center;
+            padding: 25px;
+            margin-top: 20px;
+        }
+
+        footer p {
+            color: #cbd5e1;
+            font-size: 14px;
+        }
+
+        /* ================= RESPONSIVE ================= */
+
+        @media (max-width: 950px) {
+
+            .hero {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .feature-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+        }
+
+        @media (max-width: 600px) {
+
+            .navbar {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .hero {
+                padding: 50px 5%;
+            }
+
+            .hero-text h1 {
+                font-size: 36px;
+            }
+
+            .hero-card {
+                width: 100%;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- ================= NAVBAR ================= -->
+
+<nav class="navbar">
+
+    <div class="logo">
+        QueueSmart
+    </div>
+
+    <div class="nav-buttons">
+
+        <a href="/login" class="login">
+            Login
+        </a>
+
+        <a href="/register" class="register">
+            Register
+        </a>
+
+    </div>
+
+</nav>
+
+
+<!-- ================= HERO ================= -->
+
+<section class="hero">
+
+
+    <div class="hero-text">
+
+        <h1>
+            Smart & Simple
+            <span>Queue Management</span>
+        </h1>
+
+        <p>
+            Manage your queue digitally, track your token,
+            reduce waiting time and get real-time queue updates
+            without standing in long lines.
+        </p>
+
+
+        <div class="hero-buttons">
+
+            <a href="/book_queue" class="primary-btn">
+                Book Queue
+            </a>
+
+            <a href="/queue_status" class="secondary-btn">
+                View Queue
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <!-- QUEUE PREVIEW -->
+
+    <div class="hero-card">
+
+        <h2>
+            Live Queue
+        </h2>
+
+        <div class="token-display">
+
+            <small>
+                Currently Serving
+            </small>
+
+            <div class="token-number">
+                #24
+            </div>
+
+        </div>
+
+
+        <div class="queue-info">
+
+            <span>
+                Active Customers
+            </span>
+
+            <strong>
+                8
+            </strong>
+
+        </div>
+
+
+        <div class="queue-info">
+
+            <span>
+                Estimated Wait
+            </span>
+
+            <strong>
+                30 min
+            </strong>
+
+        </div>
+
+
+        <div class="queue-info">
+
+            <span>
+                Queue Status
+            </span>
+
+            <strong style="color: green;">
+                Active
+            </strong>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= FEATURES ================= -->
+
+<section class="features">
+
+
+    <div class="section-title">
+
+        <h2>
+            Everything You Need
+        </h2>
+
+        <p>
+            A complete digital queue management experience
+        </p>
+
+    </div>
+
+
+    <div class="feature-grid">
+
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+                🎫
+            </div>
+
+            <h3>
+                Digital Token
+            </h3>
+
+            <p>
+                Book your queue and receive a digital token number.
+            </p>
+
+        </div>
+
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+                ⏱️
+            </div>
+
+            <h3>
+                Waiting Time
+            </h3>
+
+            <p>
+                Estimate your waiting time based on your queue position.
+            </p>
+
+        </div>
+
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+                📊
+            </div>
+
+            <h3>
+                Live Status
+            </h3>
+
+            <p>
+                Track the current token and monitor queue progress.
+            </p>
+
+        </div>
+
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+                🏢
+            </div>
+
+            <h3>
+                Multiple Organizations
+            </h3>
+
+            <p>
+                Select organizations, locations and services easily.
+            </p>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<!-- ================= QUICK ACTIONS ================= -->
+
+<section class="quick">
+
+    <h2>
+        Quick Actions
+    </h2>
+
+
+    <div class="quick-buttons">
+
+        <a href="/book_queue">
+            Book Queue
+        </a>
+
+        <a href="/queue_status">
+            Queue Status
+        </a>
+
+        <a href="/current_token">
+            Current Token
+        </a>
+
+        <a href="/my_bookings">
+            My Bookings
+        </a>
+
+        <a href="/admin_dashboard">
+            Admin Dashboard
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+    <p>
+        Digital Queue Management System
+    </p>
+
+    <p>
+        Smart • Fast • Efficient
+    </p>
+
+</footer>
+
+
+</body>
+
+</html>

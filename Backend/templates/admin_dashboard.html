@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Dashboard</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f6f9;
+        }
+
+        /* ================= HEADER ================= */
+
+        .header {
+            background: #0d6efd;
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 30px;
+        }
+
+        .header p {
+            margin: 8px 0 0;
+            font-size: 15px;
+        }
+
+        /* ================= CONTAINER ================= */
+
+        .container {
+            width: 95%;
+            max-width: 1400px;
+            margin: 30px auto;
+        }
+
+        /* ================= STATISTICS ================= */
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 22px 10px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.12);
+        }
+
+        .stat-card h3 {
+            margin: 5px 0 15px;
+            font-size: 15px;
+            color: #555;
+        }
+
+        .number {
+            font-size: 32px;
+            font-weight: bold;
+            color: #0d6efd;
+        }
+
+        .minutes {
+            color: #777;
+            margin-top: 5px;
+            font-size: 13px;
+        }
+
+        /* ================= SEARCH ================= */
+
+        .search-box {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+        }
+
+        .search-box form {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .search-box input {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 15px;
+        }
+
+        button {
+            padding: 11px 18px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            color: white;
+            font-size: 14px;
+        }
+
+        .search-btn {
+            background: #0d6efd;
+        }
+
+        .clear-btn {
+            background: #6c757d;
+        }
+
+        .search-btn:hover {
+            background: #0b5ed7;
+        }
+
+        .clear-btn:hover {
+            background: #5c636a;
+        }
+
+        /* ================= TABLE ================= */
+
+        .table-container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            overflow-x: auto;
+        }
+
+        .table-container h2 {
+            margin-top: 0;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 850px;
+        }
+
+        th {
+            background: #0d6efd;
+            color: white;
+            padding: 13px;
+            text-align: center;
+        }
+
+        td {
+            padding: 13px;
+            border-bottom: 1px solid #ddd;
+            text-align: center;
+        }
+
+        tr:hover {
+            background: #f8f9fa;
+        }
+
+        /* ================= STATUS ================= */
+
+        .pending {
+            color: orange;
+            font-weight: bold;
+        }
+
+        .progress {
+            color: #0d6efd;
+            font-weight: bold;
+        }
+
+        .completed {
+            color: green;
+            font-weight: bold;
+        }
+
+        .cancelled {
+            color: red;
+            font-weight: bold;
+        }
+
+        /* ================= ACTION BUTTONS ================= */
+
+        .start {
+            background: #0d6efd;
+        }
+
+        .complete {
+            background: #198754;
+        }
+
+        .cancel {
+            background: #dc3545;
+        }
+
+        .action-button {
+            margin: 2px;
+        }
+
+        .start:hover {
+            background: #0b5ed7;
+        }
+
+        .complete:hover {
+            background: #157347;
+        }
+
+        .cancel:hover {
+            background: #bb2d3b;
+        }
+
+        /* ================= BOTTOM BUTTONS ================= */
+
+        .bottom {
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        .export {
+            background: #198754;
+        }
+
+        .home {
+            background: #6c757d;
+        }
+
+        .export:hover {
+            background: #157347;
+        }
+
+        .home:hover {
+            background: #5c636a;
+        }
+
+        /* ================= NO BOOKINGS ================= */
+
+        .no-bookings {
+            text-align: center;
+            color: #777;
+            padding: 25px;
+        }
+
+        /* ================= RESPONSIVE ================= */
+
+        @media (max-width: 1100px) {
+
+            .stats {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+        }
+
+        @media (max-width: 650px) {
+
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .search-box form {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .search-box input {
+                width: 100%;
+            }
+
+            .search-btn,
+            .clear-btn {
+                width: 100%;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- ================================================= -->
+<!-- HEADER -->
+<!-- ================================================= -->
+
+<div class="header">
+
+    <h1>Admin Dashboard</h1>
+
+    <p>Intelligent Queue Management System</p>
+
+</div>
+
+
+<div class="container">
+
+
+<!-- ================================================= -->
+<!-- STATISTICS -->
+<!-- ================================================= -->
+
+<div class="stats">
+
+
+    <!-- TOTAL BOOKINGS -->
+
+    <div class="stat-card">
+
+        <h3>Total Bookings</h3>
+
+        <div class="number">
+            {{ total_bookings }}
+        </div>
+
+    </div>
+
+
+    <!-- PENDING -->
+
+    <div class="stat-card">
+
+        <h3>Pending</h3>
+
+        <div class="number">
+            {{ pending_count }}
+        </div>
+
+    </div>
+
+
+    <!-- IN PROGRESS -->
+
+    <div class="stat-card">
+
+        <h3>In Progress</h3>
+
+        <div class="number">
+            {{ in_progress_count }}
+        </div>
+
+    </div>
+
+
+    <!-- COMPLETED -->
+
+    <div class="stat-card">
+
+        <h3>Completed</h3>
+
+        <div class="number">
+            {{ completed_count }}
+        </div>
+
+    </div>
+
+
+    <!-- CANCELLED -->
+
+    <div class="stat-card">
+
+        <h3>Cancelled</h3>
+
+        <div class="number">
+            {{ cancelled_count }}
+        </div>
+
+    </div>
+
+
+    <!-- AVERAGE WAITING TIME -->
+
+    <div class="stat-card">
+
+        <h3>Average Waiting Time</h3>
+
+        <div class="number">
+            {{ average_waiting_time }}
+        </div>
+
+        <div class="minutes">
+            Minutes
+        </div>
+
+    </div>
+
+
+</div>
+
+
+<!-- ================================================= -->
+<!-- SEARCH -->
+<!-- ================================================= -->
+
+<div class="search-box">
+
+    <form method="GET" action="/admin_dashboard">
+
+        <input
+            type="text"
+            name="search"
+            placeholder="Search customer, organization or service..."
+            value="{{ request.args.get('search', '') }}"
+        >
+
+        <button
+            type="submit"
+            class="search-btn">
+            Search
+        </button>
+
+        <a href="/admin_dashboard">
+
+            <button
+                type="button"
+                class="clear-btn">
+                Clear
+            </button>
+
+        </a>
+
+    </form>
+
+</div>
+
+
+<!-- ================================================= -->
+<!-- BOOKINGS TABLE -->
+<!-- ================================================= -->
+
+<div class="table-container">
+
+    <h2>All Bookings</h2>
+
+    <table>
+
+        <thead>
+
+            <tr>
+
+                <th>Appointment ID</th>
+
+                <th>Token</th>
+
+                <th>Customer</th>
+
+                <th>Organization</th>
+
+                <th>Service</th>
+
+                <th>Status</th>
+
+                <th>Action</th>
+
+            </tr>
+
+        </thead>
+
+
+        <tbody>
+
+
+        {% for row in bookings %}
+
+            <tr>
+
+                <!-- APPOINTMENT ID -->
+
+                <td>
+                    {{ row[0] }}
+                </td>
+
+
+                <!-- TOKEN -->
+
+                <td>
+                    <strong>{{ row[1] }}</strong>
+                </td>
+
+
+                <!-- CUSTOMER -->
+
+                <td>
+                    {{ row[2] }}
+                </td>
+
+
+                <!-- ORGANIZATION -->
+
+                <td>
+                    {{ row[3] }}
+                </td>
+
+
+                <!-- SERVICE -->
+
+                <td>
+                    {{ row[4] }}
+                </td>
+
+
+                <!-- STATUS -->
+
+                <td>
+
+                    {% if row[5] == "Pending" %}
+
+                        <span class="pending">
+                            Pending
+                        </span>
+
+                    {% elif row[5] == "In Progress" %}
+
+                        <span class="progress">
+                            In Progress
+                        </span>
+
+                    {% elif row[5] == "Completed" %}
+
+                        <span class="completed">
+                            Completed
+                        </span>
+
+                    {% elif row[5] == "Cancelled" %}
+
+                        <span class="cancelled">
+                            Cancelled
+                        </span>
+
+                    {% else %}
+
+                        {{ row[5] }}
+
+                    {% endif %}
+
+                </td>
+
+
+                <!-- ACTION -->
+
+                <td>
+
+
+                    {% if row[5] == "Pending" %}
+
+                        <a href="/update_status/{{ row[0] }}/In%20Progress">
+
+                            <button class="start action-button">
+                                Start
+                            </button>
+
+                        </a>
+
+
+                        <a href="/update_status/{{ row[0] }}/Cancelled">
+
+                            <button class="cancel action-button">
+                                Cancel
+                            </button>
+
+                        </a>
+
+
+                    {% elif row[5] == "In Progress" %}
+
+                        <a href="/update_status/{{ row[0] }}/Completed">
+
+                            <button class="complete action-button">
+                                Complete
+                            </button>
+
+                        </a>
+
+
+                        <a href="/update_status/{{ row[0] }}/Cancelled">
+
+                            <button class="cancel action-button">
+                                Cancel
+                            </button>
+
+                        </a>
+
+
+                    {% else %}
+
+                        <span>
+                            —
+                        </span>
+
+                    {% endif %}
+
+
+                </td>
+
+            </tr>
+
+
+        {% else %}
+
+            <tr>
+
+                <td colspan="7" class="no-bookings">
+
+                    No bookings found.
+
+                </td>
+
+            </tr>
+
+        {% endfor %}
+
+
+        </tbody>
+
+    </table>
+
+</div>
+
+
+<!-- ================================================= -->
+<!-- BOTTOM BUTTONS -->
+<!-- ================================================= -->
+
+<div class="bottom">
+
+
+    <a href="/export_csv">
+
+        <button class="export">
+            Export Bookings CSV
+        </button>
+
+    </a>
+
+
+    <a href="/">
+
+        <button class="home">
+            Back to Home
+        </button>
+
+    </a>
+
+
+</div>
+
+
+</div>
+
+
+</body>
+
+</html>
